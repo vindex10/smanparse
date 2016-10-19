@@ -46,6 +46,7 @@ s = """
         <title>Articles</title>
     </head>
     <body>
+    <h1>Articles I like</h1>
     """
 output.write(s)
 
