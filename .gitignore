@@ -1,0 +1,10 @@
+/data/
+/output/
+/config/*.conf
+/.env
+/.prj
+*.py[cod]
+__pycache__/
+*.sw[po]
+*~
+/activate
