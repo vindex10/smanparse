@@ -13,7 +13,7 @@ def fskip(f, num):
 for f in os.listdir(path):
     local = dict()
     fullpath = path + f
-    if not os.path.isfile(fullpath):
+    if not os.path.isfile(fullpath) or f.startswith("."):
         continue
     file = open(fullpath, "r")
 
@@ -26,12 +26,15 @@ for f in os.listdir(path):
 
     fskip(file, 1)
 
-    data = json.loads(file.readline())["windows"][0]["tabs"]
-    data = [{key: tab["entries"][0][key] for key in ("title", "url")} for tab in data]
+    data = json.loads(file.readline())["windows"]
+    tabs = list()
+    for win in data:
+        tabs = tabs + win["tabs"]
+    data = [{key: tab["entries"][0][key] for key in ("title", "url")} for tab in tabs]
     local.update({"data": data})
     file.close()
 
-    res.append(dict(local))
+    res.append(local)
 
 res.sort(key=lambda x: x["ts"], reverse=True)
 
